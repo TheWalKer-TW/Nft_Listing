@@ -1,3 +1,5 @@
+import axios from "axios"
+
 export const NFTCard = ({ nft }) => {
     const metadata = JSON.parse(nft.metadata)
     const name = metadata.name
