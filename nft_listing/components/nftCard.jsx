@@ -1,12 +1,12 @@
-import axios from "axios"
-
 export const NFTCard = ({ nft }) => {
-    const metadata = JSON.parse(nft.metadata)
+    console.log(nft)
+    const metadata = nft.metadata
     const name = metadata.name
     const description = metadata.description
-    const tokenId = nft.token_id
-    const nftAddress = nft.token_address
-    const imageURI = metadata.image
+    const tokenId = nft.id.tokenId
+    const nftAddress = nft.contract.address
+    const imageURI = metadata.image ? metadata.image : nft.error
+    console.log(imageURI)
     const imageURIURL = imageURI.startsWith("ipfs://")
         ? imageURI.replace("ipfs://", "https://ipfs.io/ipfs/")
         : imageURI
