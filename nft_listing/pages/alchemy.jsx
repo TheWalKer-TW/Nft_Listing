@@ -10,7 +10,6 @@ const Home = () => {
 
     const fetchNFTs = async () => {
         console.log("Fetching nfts...")
-
         var requestOptions = {
             method: "GET",
             redirect: "follow",
@@ -53,7 +52,7 @@ const Home = () => {
 
             nfts = await fetch(fetchURL, requestOptions)
                 .then((data) => data.json())
-                .catch((error) => console.log("error", error))
+                .catch((error) => console.error({ error }))
         }
 
         if (nfts) {
@@ -64,11 +63,22 @@ const Home = () => {
 
     const fetchNFTsForCollection = async () => {
         if (collection.length) {
-            var requestOptions = {
-                method: "GET",
-            }
+            var options = { method: "GET", headers: { accept: "application/json" } }
 
             const apiKey = process.env.NEXT_PUBLIC_ALCHEMY_API_KEY
+
+            await fetch(
+                `https://eth-goerli.g.alchemy.com/nft/v2/${apiKey}/invalidateContract?contractAddress=${collection}`,
+                options
+            )
+                .then((response) => response.json())
+                .then((response) => console.log(response))
+                .catch((err) => console.error(err))
+
+            var requestOptions = {
+                method: "GET",
+                redirect: "follow",
+            }
 
             let baseURL
             switch (chain) {

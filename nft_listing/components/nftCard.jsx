@@ -5,7 +5,7 @@ export const NFTCard = ({ nft }) => {
     const description = metadata.description
     const tokenId = nft.id.tokenId
     const nftAddress = nft.contract.address
-    const imageURI = metadata.image ? metadata.image : nft.error
+    const imageURI = metadata.image ? metadata.image : "nft.error"
     console.log(imageURI)
     const imageURIURL = imageURI.startsWith("ipfs://")
         ? imageURI.replace("ipfs://", "https://ipfs.io/ipfs/")
